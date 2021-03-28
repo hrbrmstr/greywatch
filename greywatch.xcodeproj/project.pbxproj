@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,10 @@
 		010941362610879F001BF5D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010941352610879F001BF5D0 /* ContentView.swift */; };
 		01094138261087A1001BF5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01094137261087A1001BF5D0 /* Assets.xcassets */; };
 		0109413B261087A1001BF5D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0109413A261087A1001BF5D0 /* Preview Assets.xcassets */; };
+		0109414426108868001BF5D0 /* netstat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109414326108868001BF5D0 /* netstat.swift */; };
+		0109414726108E8F001BF5D0 /* SwiftShell in Frameworks */ = {isa = PBXBuildFile; productRef = 0109414626108E8F001BF5D0 /* SwiftShell */; };
+		0109414926108FDC001BF5D0 /* String-Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109414826108FDC001BF5D0 /* String-Regex.swift */; };
+		0109414D2610AFBE001BF5D0 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109414C2610AFBE001BF5D0 /* model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +25,10 @@
 		0109413A261087A1001BF5D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0109413C261087A1001BF5D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0109413D261087A1001BF5D0 /* greywatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = greywatch.entitlements; sourceTree = "<group>"; };
+		0109414326108868001BF5D0 /* netstat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = netstat.swift; sourceTree = "<group>"; };
+		0109414826108FDC001BF5D0 /* String-Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Regex.swift"; sourceTree = "<group>"; };
+		0109414C2610AFBE001BF5D0 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		0109414E2610CBF3001BF5D0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0109414726108E8F001BF5D0 /* SwiftShell in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +46,7 @@
 		010941272610879F001BF5D0 = {
 			isa = PBXGroup;
 			children = (
+				0109414E2610CBF3001BF5D0 /* README.md */,
 				010941322610879F001BF5D0 /* greywatch */,
 				010941312610879F001BF5D0 /* Products */,
 			);
@@ -55,6 +65,9 @@
 			children = (
 				010941332610879F001BF5D0 /* greywatchApp.swift */,
 				010941352610879F001BF5D0 /* ContentView.swift */,
+				0109414C2610AFBE001BF5D0 /* model.swift */,
+				0109414326108868001BF5D0 /* netstat.swift */,
+				0109414826108FDC001BF5D0 /* String-Regex.swift */,
 				01094137261087A1001BF5D0 /* Assets.xcassets */,
 				0109413C261087A1001BF5D0 /* Info.plist */,
 				0109413D261087A1001BF5D0 /* greywatch.entitlements */,
@@ -87,6 +100,9 @@
 			dependencies = (
 			);
 			name = greywatch;
+			packageProductDependencies = (
+				0109414626108E8F001BF5D0 /* SwiftShell */,
+			);
 			productName = greywatch;
 			productReference = 010941302610879F001BF5D0 /* greywatch.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +130,9 @@
 				Base,
 			);
 			mainGroup = 010941272610879F001BF5D0;
+			packageReferences = (
+				0109414526108E8F001BF5D0 /* XCRemoteSwiftPackageReference "SwiftShell" */,
+			);
 			productRefGroup = 010941312610879F001BF5D0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,8 +159,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0109414926108FDC001BF5D0 /* String-Regex.swift in Sources */,
+				0109414D2610AFBE001BF5D0 /* model.swift in Sources */,
 				010941362610879F001BF5D0 /* ContentView.swift in Sources */,
 				010941342610879F001BF5D0 /* greywatchApp.swift in Sources */,
+				0109414426108868001BF5D0 /* netstat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +355,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0109414526108E8F001BF5D0 /* XCRemoteSwiftPackageReference "SwiftShell" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kareman/SwiftShell";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0109414626108E8F001BF5D0 /* SwiftShell */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0109414526108E8F001BF5D0 /* XCRemoteSwiftPackageReference "SwiftShell" */;
+			productName = SwiftShell;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 010941282610879F001BF5D0 /* Project object */;
 }
