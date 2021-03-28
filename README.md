@@ -4,7 +4,7 @@ Andrew Morris (Greynoise founder) and the GN team released a free community API 
 
 I made some improvements on that but shells are so 2020.
 
-![](greywatch-screen.png)
+![](greywatch-screen-01.png)
 
 If you've got BigSur, compile this  Xcode project or grab the release and you can have app on the side that updates every 30 seconds (will be configurable at some point) and shows the established TCP connections (only new ones going forward) with color annotations to show if an IP is super bad (on GN naught list) and/or part of the RIOT (community IP classifications).
 
