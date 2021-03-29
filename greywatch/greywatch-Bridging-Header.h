@@ -2,6 +2,7 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
+
 #include <sys/param.h>
 #include <sys/queue.h>
 #include <sys/socket.h>
@@ -27,3 +28,7 @@
 #include <netinet/tcp_var.h>
 #include <netinet/udp.h>
 #include <netinet/udp_var.h>
+
+#import <Foundation/Foundation.h>
+
+NSMutableArray *read_tcp_stat(void);

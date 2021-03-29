@@ -21,6 +21,7 @@ struct GreynoiseResponse: Hashable, Codable, Identifiable {
   
 }
 
+
 class GNModel: ObservableObject {
   
   @Published var seen: [GreynoiseResponse] = []
@@ -59,8 +60,8 @@ class GNModel: ObservableObject {
   func updateIPList() {
     
     netstat()
-      .groups(pattern: IPv4Regex)
-      .unique()
+//      .groups(pattern: IPv4Regex)
+//      .unique()
       .notin(seen.compactMap { $0.ip })
       .filter { !($0.matches(privateIPv4Regex)) }
       .notin(dig())

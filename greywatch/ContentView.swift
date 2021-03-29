@@ -82,6 +82,7 @@ struct GNRow : View {
       if let url = makeURL(gnresp.link, ip: gnresp.ip) { NSWorkspace.shared.open(url) }
     }
     .frame(alignment: .leading)
+    .fixedSize()
     
   }
   
@@ -98,11 +99,7 @@ struct ContentView: View {
       GNRow(gnresp: $0)
       .frame(alignment: .leading)
     }
-//    List(selection: $sel) {
-//      ForEach(model.seen.reversed()) { GNRow(gnresp: $0) }
-//      .frame(alignment: .leading)
-//    }
-    .frame(minWidth: 320.0, idealWidth: 320.0, maxWidth: 400, minHeight: 400.0, maxHeight: 700)
+    .frame(minWidth: 400.0, idealWidth: 400.0, maxWidth: 400.0, minHeight: 400.0, maxHeight: 700)
     .padding()
     .listStyle(InsetListStyle())
   }

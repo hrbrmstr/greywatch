@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0108AD52261231C500272324 /* sysctl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108AD51261231C500272324 /* sysctl.swift */; };
 		010941342610879F001BF5D0 /* greywatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010941332610879F001BF5D0 /* greywatchApp.swift */; };
 		010941362610879F001BF5D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010941352610879F001BF5D0 /* ContentView.swift */; };
 		01094138261087A1001BF5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01094137261087A1001BF5D0 /* Assets.xcassets */; };
@@ -15,10 +16,13 @@
 		0109414726108E8F001BF5D0 /* SwiftShell in Frameworks */ = {isa = PBXBuildFile; productRef = 0109414626108E8F001BF5D0 /* SwiftShell */; };
 		0109414926108FDC001BF5D0 /* String-Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109414826108FDC001BF5D0 /* String-Regex.swift */; };
 		0109414D2610AFBE001BF5D0 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109414C2610AFBE001BF5D0 /* model.swift */; };
-		010941522611B424001BF5D0 /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = 010941512611B424001BF5D0 /* inet.c */; };
+		010941522611B424001BF5D0 /* inet.m in Sources */ = {isa = PBXBuildFile; fileRef = 010941512611B424001BF5D0 /* inet.m */; };
+		01FE06FB2611F672005F94A4 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE06FA2611F672005F94A4 /* utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0108AD51261231C500272324 /* sysctl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sysctl.swift; sourceTree = "<group>"; };
+		0108AD762612392E00272324 /* privateheader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = privateheader.h; sourceTree = "<group>"; };
 		010941302610879F001BF5D0 /* greywatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = greywatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		010941332610879F001BF5D0 /* greywatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = greywatchApp.swift; sourceTree = "<group>"; };
 		010941352610879F001BF5D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,8 +36,9 @@
 		0109414E2610CBF3001BF5D0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0109414F2611B424001BF5D0 /* greywatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greywatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		010941502611B424001BF5D0 /* inet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inet.h; sourceTree = "<group>"; };
-		010941512611B424001BF5D0 /* inet.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inet.c; sourceTree = "<group>"; };
+		010941512611B424001BF5D0 /* inet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = inet.m; sourceTree = "<group>"; };
 		01FE06F92611E6AA005F94A4 /* NEWS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NEWS.md; sourceTree = "<group>"; };
+		01FE06FA2611F672005F94A4 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,15 +76,18 @@
 			children = (
 				010941332610879F001BF5D0 /* greywatchApp.swift */,
 				010941352610879F001BF5D0 /* ContentView.swift */,
+				01FE06FA2611F672005F94A4 /* utils.swift */,
 				0109414C2610AFBE001BF5D0 /* model.swift */,
 				0109414326108868001BF5D0 /* netstat.swift */,
+				0108AD51261231C500272324 /* sysctl.swift */,
+				0108AD762612392E00272324 /* privateheader.h */,
 				0109414826108FDC001BF5D0 /* String-Regex.swift */,
 				01094137261087A1001BF5D0 /* Assets.xcassets */,
 				0109413C261087A1001BF5D0 /* Info.plist */,
 				0109413D261087A1001BF5D0 /* greywatch.entitlements */,
 				01094139261087A1001BF5D0 /* Preview Content */,
 				010941502611B424001BF5D0 /* inet.h */,
-				010941512611B424001BF5D0 /* inet.c */,
+				010941512611B424001BF5D0 /* inet.m */,
 				0109414F2611B424001BF5D0 /* greywatch-Bridging-Header.h */,
 			);
 			path = greywatch;
@@ -170,11 +178,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0109414926108FDC001BF5D0 /* String-Regex.swift in Sources */,
+				0108AD52261231C500272324 /* sysctl.swift in Sources */,
+				01FE06FB2611F672005F94A4 /* utils.swift in Sources */,
 				0109414D2610AFBE001BF5D0 /* model.swift in Sources */,
 				010941362610879F001BF5D0 /* ContentView.swift in Sources */,
 				010941342610879F001BF5D0 /* greywatchApp.swift in Sources */,
 				0109414426108868001BF5D0 /* netstat.swift in Sources */,
-				010941522611B424001BF5D0 /* inet.c in Sources */,
+				010941522611B424001BF5D0 /* inet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +300,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -316,7 +327,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = is.rud.greywatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "greywatch/greywatch-Bridging-Header.h";
@@ -345,7 +356,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = is.rud.greywatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "greywatch/greywatch-Bridging-Header.h";

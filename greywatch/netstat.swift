@@ -10,12 +10,16 @@ import SwiftShell
 
 let GREYNOISE_API_HOST = "viz.greynoise.io"
 
-func netstat() -> String {
+func netstat() -> [String] {
   
-  let task = run("/usr/sbin/netstat", "-anp", "TCP")
-  print(task.stdout)
-  return(task.stdout)
+  let x = read_tcp_stat()! as! [String]
   
+//  let task = run("/usr/sbin/netstat", "-anp", "TCP")
+//  print(task.stdout)
+//  return(task.stdout)
+  
+  return(x.unique())
+
 }
 
 func dig() -> [String] {
