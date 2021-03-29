@@ -18,6 +18,8 @@
 //  IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 //
 
+// NOTE: Not currently using this but may convert the obj-c code to Swift in the future so keeping it around
+
 import Foundation
 
 /// A "static"-only namespace around a series of functions that operate on buffers returned from the `Darwin.sysctl` function

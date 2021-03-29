@@ -42,7 +42,8 @@ NSArray *read_tcp_stat(void) {
   struct sockaddr_storage local;
   struct sockaddr_storage remote;
   struct sockaddr_in *sin;
-  int ret, found_connection;
+  int ret;
+  bool found_connection;
 
   NSMutableArray *addresses = [ [NSMutableArray alloc] initWithCapacity: 32 ]; // should be sufficient for regular desktops
   
@@ -68,7 +69,7 @@ NSArray *read_tcp_stat(void) {
        xip->xig_len > sizeof(struct xinpgen);
        xip = (struct xinpgen *)((char *)xip + xip->xig_len)) {
     
-    found_connection = 0;
+    found_connection = false;
     tcpcb = (struct xtcpcb64 *)xip;
     inpcb = &tcpcb->xt_inpcb;
     sock = &inpcb->xi_socket;
@@ -86,7 +87,7 @@ NSArray *read_tcp_stat(void) {
       sin->sin_family = AF_INET;
       memcpy(&sin->sin_addr, &inpcb->inp_faddr, sizeof(struct in_addr));
       sin->sin_port = inpcb->inp_fport;
-      found_connection = 1;
+      found_connection = true;
       
     } else {
       continue;

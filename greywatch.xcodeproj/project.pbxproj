@@ -22,7 +22,6 @@
 
 /* Begin PBXFileReference section */
 		0108AD51261231C500272324 /* sysctl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sysctl.swift; sourceTree = "<group>"; };
-		0108AD762612392E00272324 /* privateheader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = privateheader.h; sourceTree = "<group>"; };
 		010941302610879F001BF5D0 /* greywatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = greywatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		010941332610879F001BF5D0 /* greywatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = greywatchApp.swift; sourceTree = "<group>"; };
 		010941352610879F001BF5D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 				0109414C2610AFBE001BF5D0 /* model.swift */,
 				0109414326108868001BF5D0 /* netstat.swift */,
 				0108AD51261231C500272324 /* sysctl.swift */,
-				0108AD762612392E00272324 /* privateheader.h */,
 				0109414826108FDC001BF5D0 /* String-Regex.swift */,
 				01094137261087A1001BF5D0 /* Assets.xcassets */,
 				0109413C261087A1001BF5D0 /* Info.plist */,
