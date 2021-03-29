@@ -31,55 +31,76 @@ func scanning(_ lastSeen: String?) -> String {
   return((lastSeen == nil) ? "IP observed scanning in last 30 days" : "IP observed scanning; last seen: \(lastSeen!)")
 }
 
+func makeURL(_ link: String?, ip: String) -> URL? {
+  var out: URL?
+  if (link != nil) {
+    if let url = URL(string: link!) { out = url }
+  } else {
+    if let url = URL(string: "https://ipinfo.io/\(ip)") { out = url }
+  }
+  return(out)
+}
+
+struct GNRow : View {
+  
+  var gnresp: GreynoiseResponse
+  
+  var body: some View {
+    HStack {
+      
+      Image(systemName: "circlebadge.fill")
+        .foregroundColor((gnresp.noise ?? false) ? Color(.systemBlue) : Color(.systemGray))
+        .fixedSize()
+        .frame(alignment: .leading)
+        .help((gnresp.noise ?? false) ? scanning(gnresp.lastSeen) : "IP not observed scanning in last 30 days")
+      
+      Image(systemName: "circlebadge.fill")
+        .foregroundColor((gnresp.riot ?? false) ? Color(.systemBlue) : Color(.systemGray))
+        .foregroundColor(Color(.systemPink))
+        .fixedSize()
+        .frame(alignment: .leading)
+        .help((gnresp.riot ?? false) ? "IP found in RIOT dataset" : "IP not in RIOT dataset")
+      
+      Image(systemName: "info.circle.fill")
+        .foregroundColor(categoryColor(gnresp.classification))
+        .foregroundColor(Color(.systemPink))
+        .fixedSize()
+        .frame(alignment: .leading)
+        .help((gnresp.classification == nil) ? "unknown" : gnresp.classification!)
+      
+      Text(gnresp.ip)
+        .font(.system(.body, design: .monospaced))
+        .fixedSize()
+        .frame(alignment: .leading)
+        .help((gnresp.link == nil) ? "" : gnresp.link!)
+      
+      Text(makeName(gnresp.name))
+        .fixedSize()
+        .frame(alignment: .leading)
+    }
+    .onTapGesture(count: 2) {
+      if let url = makeURL(gnresp.link, ip: gnresp.ip) { NSWorkspace.shared.open(url) }
+    }
+    .frame(alignment: .leading)
+    
+  }
+  
+}
+
 struct ContentView: View {
   
   @EnvironmentObject var model: GNModel
   
   var body: some View {
     List {
-      ForEach(model.seen.reversed()) { gnip in
-        HStack {
-          Image(systemName: "circlebadge.fill")
-            .foregroundColor((gnip.noise ?? false) ? Color(.systemBlue) : Color(.systemGray))
-            .fixedSize()
-            .frame(alignment: .leading)
-            .help((gnip.noise ?? false) ? scanning(gnip.lastSeen) : "IP not observed scanning in last 30 days")
-          Image(systemName: "circlebadge.fill")
-            .foregroundColor((gnip.riot ?? false) ? Color(.systemBlue) : Color(.systemGray))
-            .foregroundColor(Color(.systemPink))
-            .fixedSize()
-            .frame(alignment: .leading)
-            .help((gnip.riot ?? false) ? "IP found in RIOT dataset" : "IP not in RIOT dataset")
-          Image(systemName: "info.circle.fill")
-            .foregroundColor(categoryColor(gnip.classification))
-            .foregroundColor(Color(.systemPink))
-            .fixedSize()
-            .frame(alignment: .leading)
-            .help((gnip.classification == nil) ? "unknown" : gnip.classification!)
-          Text(gnip.ip)
-            .font(.system(.body, design: .monospaced))
-            .fixedSize()
-            .frame(alignment: .leading)
-          Text(makeName(gnip.name))
-            .fixedSize()
-            .frame(alignment: .leading)
-        }
-        .onTapGesture(count: 2) {
-          if (gnip.link != nil) {
-            if let url = URL(string: gnip.link!) { NSWorkspace.shared.open(url) }
-          } else {
-            if let url = URL(string: "https://ipinfo.io/\(gnip.ip)") { NSWorkspace.shared.open(url) }
-          }
-        }
-        .frame(alignment: .leading)
-      }
-      .fixedSize()
+      ForEach(model.seen.reversed()) { GNRow(gnresp: $0) }
       .frame(alignment: .leading)
     }
+    .frame(minWidth: 320.0, idealWidth: 320.0, maxWidth: 400, minHeight: 400.0)
     .padding()
     .listStyle(InsetListStyle())
   }
-  
+
 }
 
 //"noise": false,
