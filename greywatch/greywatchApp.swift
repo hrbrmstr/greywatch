@@ -39,8 +39,8 @@ struct greywatchApp: App {
                 let exportFile = FileHandle(forWritingAtPath: fileUrl.path)
                 for gnresp in model.seen {
                   let jsonData = try JSONEncoder().encode(gnresp)
-                  let jsonString = String(data: jsonData, encoding: .utf8)!
-                  exportFile?.write("\(jsonString)\n")
+//                  let jsonString = String(data: jsonData, encoding: .utf8)!
+                  exportFile?.write(jsonData)
                 }
                 try exportFile?.close()
               } catch {
