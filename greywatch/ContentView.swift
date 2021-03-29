@@ -90,13 +90,19 @@ struct GNRow : View {
 struct ContentView: View {
   
   @EnvironmentObject var model: GNModel
-  
+  @Binding var sel: GreynoiseResponse?
+
   var body: some View {
-    List {
-      ForEach(model.seen.reversed()) { GNRow(gnresp: $0) }
+
+    List(model.seen.reversed(), selection: $sel) {
+      GNRow(gnresp: $0)
       .frame(alignment: .leading)
     }
-    .frame(minWidth: 320.0, idealWidth: 320.0, maxWidth: 400, minHeight: 400.0)
+//    List(selection: $sel) {
+//      ForEach(model.seen.reversed()) { GNRow(gnresp: $0) }
+//      .frame(alignment: .leading)
+//    }
+    .frame(minWidth: 320.0, idealWidth: 320.0, maxWidth: 400, minHeight: 400.0, maxHeight: 700)
     .padding()
     .listStyle(InsetListStyle())
   }

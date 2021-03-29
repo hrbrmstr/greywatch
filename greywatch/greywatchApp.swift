@@ -11,9 +11,10 @@ var model = GNModel() // initialize the app model
 
 @main
 struct greywatchApp: App {
+  @State var sel:GreynoiseResponse?
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      ContentView(sel:$sel)
         .environmentObject(model)
     }.commands {
       CommandGroup(after: .newItem) {
