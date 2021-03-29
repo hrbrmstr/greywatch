@@ -1,4 +1,5 @@
 import Foundation
+import Darwin
 
 struct GreynoiseResponse: Hashable, Codable, Identifiable {
   
@@ -23,6 +24,7 @@ struct GreynoiseResponse: Hashable, Codable, Identifiable {
 class GNModel: ObservableObject {
   
   @Published var seen: [GreynoiseResponse] = []
+  
   weak var timer: Timer?
   let shortTimerDuration = 1.0
   let longTimerDuration = 30.0
@@ -34,7 +36,7 @@ class GNModel: ObservableObject {
   deinit {
     stopTimer()
   }
-
+  
   func startTimer() {
     stopTimer()
     timer = Timer.scheduledTimer(withTimeInterval: shortTimerDuration, repeats: false) { [weak self] _ in
@@ -61,25 +63,25 @@ class GNModel: ObservableObject {
       .unique()
       .notin(seen.compactMap { $0.ip })
       .filter { !($0.matches(privateIPv4Regex)) }
-      .notin(dig().components(separatedBy: "\n"))
+      .notin(dig())
       .forEach { ip in
-          let url = URL(string: "https://api.greynoise.io/v3/community/\(ip)")!
-          let configuration = URLSessionConfiguration.ephemeral
-          let session = URLSession(configuration: configuration)
-          let task = session.dataTask(with: url, completionHandler: { data, response, error in
-            guard let data = data else { return }
-            do {
-              let decoder = JSONDecoder()
-              let gnResponse = try decoder.decode(GreynoiseResponse.self, from: data)
-              DispatchQueue.main.async {
-                self.seen.append(gnResponse)
-              }
-            } catch let parseErr {
-              debugPrint("\(parseErr)")
+        let url = URL(string: "https://api.greynoise.io/v3/community/\(ip)")!
+        let configuration = URLSessionConfiguration.ephemeral
+        let session = URLSession(configuration: configuration)
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+          guard let data = data else { return }
+          do {
+            let decoder = JSONDecoder()
+            let gnResponse = try decoder.decode(GreynoiseResponse.self, from: data)
+            DispatchQueue.main.async {
+              self.seen.append(gnResponse)
             }
-          })
-          task.resume()
-        }
+          } catch let parseErr {
+            debugPrint("\(parseErr)")
+          }
+        })
+        task.resume()
       }
+  }
   
 }
