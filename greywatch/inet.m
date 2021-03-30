@@ -93,6 +93,8 @@ NSArray *read_tcp_stat(void) {
       continue;
     }
     
+    if (!found_connection) found_connection = false; // Xcode is STUPID
+
     if (found_connection) {
 //      printf("Got connection ");
       struct sockaddr_in *sin = (struct sockaddr_in *)&remote;
