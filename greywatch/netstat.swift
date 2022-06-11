@@ -9,6 +9,7 @@ import Foundation
 // import SwiftShell // keeping this around in the event it comes in handy
 
 let GREYNOISE_API_HOST = "viz.greynoise.io"
+let IPAPI_HOST = "ip-api.com"
 
 // Get's IPv4 ESTABLISHED connection (remote addresses)
 func netstat() -> [String] {
@@ -24,9 +25,9 @@ func netstat() -> [String] {
 }
 
 // Does an A record query (can return multiple)
-func dig() -> [String] {
+func dig(_ hostname: String) -> [String] {
   
-  let host = CFHostCreateWithName(nil, GREYNOISE_API_HOST as CFString).takeRetainedValue()
+  let host = CFHostCreateWithName(nil, hostname as CFString).takeRetainedValue()
   
   CFHostStartInfoResolution(host, .addresses, nil)
   

@@ -9,18 +9,38 @@ import SwiftUI
 
 var model = GNModel() // initialize the app model
 
+struct SettingsView: View {
+  
+  @AppStorage("GNAPIKEY") var gnAPIKey = ""
+  
+  var body: some View {
+    Form {
+      TextField("GreyNoise API Key", text: $gnAPIKey)
+        .help("Enter GreyNoise API Key")
+    }
+    .padding()
+    .frame(minWidth: 400)
+  }
+  
+}
+
 @main
 struct greywatchApp: App {
   
   @State var sel:GreynoiseResponse?
   
   var body: some Scene {
+    
     WindowGroup {
       ContentView(sel:$sel)
         .environmentObject(model)
+      
     }.commands {
+      
       CommandGroup(after: .newItem) {
+        
         Divider()
+        
         Button(action: {
           
           let panel = NSSavePanel()
@@ -39,7 +59,6 @@ struct greywatchApp: App {
                 let exportFile = FileHandle(forWritingAtPath: fileUrl.path)
                 for gnresp in model.seen {
                   let jsonData = try JSONEncoder().encode(gnresp)
-//                  let jsonString = String(data: jsonData, encoding: .utf8)!
                   exportFile?.write(jsonData)
                 }
                 try exportFile?.close()
@@ -54,6 +73,12 @@ struct greywatchApp: App {
         }
         .keyboardShortcut("e", modifiers: [.command, .shift])
       }
+      
     }
+    
+    Settings {
+      SettingsView()
+    }
+    
   }
 }

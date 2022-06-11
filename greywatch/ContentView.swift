@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-let IPv4Regex = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-let privateIPv4Regex = "(^127\\.)|(^10\\.)|(^172\\.1[6-9]\\.)|(^172\\.2[0-9]\\.)|(^172\\.3[0-1]\\.)|(^192\\.168\\.)|(0\\.0\\.0\\.0)"
-
 func categoryColor(_ gnclass: String?) -> Color {
   let theClassification = (gnclass ?? "unknown")
   if (theClassification == "unknown") {
@@ -31,21 +28,13 @@ func scanning(_ lastSeen: String?) -> String {
   return((lastSeen == nil) ? "IP observed scanning in last 30 days" : "IP observed scanning; last seen: \(lastSeen!)")
 }
 
-func makeURL(_ link: String?, ip: String) -> URL? {
-  var out: URL?
-  if (link != nil) {
-    if let url = URL(string: link!) { out = url }
-  } else {
-    if let url = URL(string: "https://ipinfo.io/\(ip)") { out = url }
-  }
-  return(out)
-}
-
 struct GNRow : View {
   
+  @EnvironmentObject var model: GNModel
   var gnresp: GreynoiseResponse
   
   var body: some View {
+    
     HStack {
       
       Image(systemName: "circlebadge.fill")
@@ -56,36 +45,31 @@ struct GNRow : View {
       
       Image(systemName: "circlebadge.fill")
         .foregroundColor((gnresp.riot ?? false) ? Color(.systemBlue) : Color(.systemGray))
-        .foregroundColor(Color(.systemPink))
         .fixedSize()
         .frame(alignment: .leading)
         .help((gnresp.riot ?? false) ? "IP found in RIOT dataset" : "IP not in RIOT dataset")
       
       Image(systemName: "info.circle.fill")
         .foregroundColor(categoryColor(gnresp.classification))
-        .foregroundColor(Color(.systemPink))
         .fixedSize()
         .frame(alignment: .leading)
         .help((gnresp.classification == nil) ? "unknown" : gnresp.classification!)
       
-      Text(gnresp.ip)
+      Text(.init(gnresp.md))
         .font(.system(.body, design: .monospaced))
         .fixedSize()
         .frame(alignment: .leading)
-        .help((gnresp.link == nil) ? "" : gnresp.link!)
+        .help((gnresp.link == nil) ? "https://ipinfo.io/\(gnresp.ip)" : gnresp.link!)
       
       Text(makeName(gnresp.name))
         .fixedSize()
         .frame(alignment: .leading)
     }
-    .onTapGesture(count: 2) {
-      if let url = makeURL(gnresp.link, ip: gnresp.ip) { NSWorkspace.shared.open(url) }
-    }
     .frame(alignment: .leading)
     .fixedSize()
     
   }
-  
+
 }
 
 struct ContentView: View {
@@ -99,7 +83,14 @@ struct ContentView: View {
       GNRow(gnresp: $0)
       .frame(alignment: .leading)
     }
-    .frame(minWidth: 400.0, idealWidth: 400.0, maxWidth: 400.0, minHeight: 400.0, maxHeight: 700)
+    .alert(isPresented: $model.queryLimitExceeded) {
+      Alert(
+        title: Text("Daily Query Limit Exceeded"),
+        message: Text("Your daily RIOT query limit has been reached. Use the app preferences to add a GreyNoise API key to increase daily limits."),
+        dismissButton: .default(Text("OK"))
+      )
+    }
+   .frame(minWidth: 400.0, idealWidth: 400.0, maxWidth: 400.0, minHeight: 400.0, maxHeight: 700)
     .padding()
     .listStyle(InsetListStyle())
   }
